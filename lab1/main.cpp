@@ -1,10 +1,11 @@
+#define _USE_MATH_DEFINES
+#include <cmath>  
 #include <iostream>
 #include <vector>
-#include <cmath>
 #include <map>
 #include <chrono>
 #include "mtrand.h"
-
+#include <algorithm>
 
 
 std::vector<double> c = {0.806,0.517,0.1,0.908,0.965,0.669,0.524,0.902,0.351,0.876,0.462,
@@ -467,72 +468,6 @@ struct function{
 
     };
 
-
-    void draw(){
-
-        int bounds = fabs(upper_bound) + fabs(lower_bound);
-        int window_xy = 1024;
-        sf::RenderWindow window(sf::VideoMode(window_xy, window_xy), "Functions");
-        sf::Uint8* pixel_array = new sf::Uint8[window_xy * window_xy * 4];
-        sf::Texture texture;
-        texture.create(window_xy, window_xy);
-        sf::Sprite sprite(texture);
-
-
-        double min = 9999999;
-        double max = 0;
-
-        for (int i = 0; i < window_xy * window_xy * 4; i += 4) {
-
-            std::vector<double> position =
-                    {static_cast<double>(set_within(((i / 4) % window_xy) - window_xy/2, 512, -512, upper_bound, lower_bound)),
-                     static_cast<double>(set_within(((i / 4) / window_xy) - window_xy/2, 512, -512, upper_bound, lower_bound))};
-
-            auto res = static_cast<double>(compute_defined(position));
-            if (res > max)
-                max = res;
-            if (res < min)
-                min = res;
-        }
-
-        for (int i = 0; i < window_xy * window_xy * 4; i += 4){
-
-            std::vector<double> position =
-                    {static_cast<double>(set_within(((i / 4) % window_xy) - window_xy/2, 512, -512, upper_bound, lower_bound)),
-                     static_cast<double>(set_within(((i / 4) / window_xy) - window_xy/2, 512, -512, upper_bound, lower_bound))};
-
-            auto res = static_cast<int>((((compute_defined(position) - min) * (16581375 - 0)) / (max - min)) + 0);
-
-            pixel_array[i + 0] = res & 0xff;
-            pixel_array[i + 1] = (res>>8)  & 0xff;
-            pixel_array[i + 2] = (res>>16) & 0xff;
-            pixel_array[i + 3] = 255;
-
-            //pixel_array[i + 0] = res;
-            //pixel_array[i + 1] = 255;
-            //pixel_array[i + 2] = 255;
-            //pixel_array[i + 3] = 255;
-
-        }
-
-        texture.update(pixel_array);
-
-        while (window.isOpen()) {
-
-            sf::Event event;
-            while (window.pollEvent(event)) {
-                if (event.type == sf::Event::Closed)
-                    window.close();
-            }
-
-            window.clear();
-            window.draw(sprite);
-            window.display();
-
-        }
-
-        delete pixel_array;
-    };
 };
 
 int main() {

@@ -59,6 +59,8 @@ public:
                 global_best_solution = best_solution;
             }
         }
+
+		return func.compute(global_best_solution);
     };
 };
 
