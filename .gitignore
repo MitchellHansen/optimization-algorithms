@@ -43,6 +43,12 @@
 *.sln.docstates
 *.vcxproj.filters
 
+
+#### Non default values !!!!!!!!!!!!!
+*.vcxproj
+*.sln
+
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
