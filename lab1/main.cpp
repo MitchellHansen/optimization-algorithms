@@ -3,15 +3,8 @@
 #include <cmath>
 #include <map>
 #include <chrono>
-#include "SFML/Graphics.hpp"
 #include "mtrand.h"
 
-
-// In order to compile and run this project you're going to either comment out the SFML
-// code or install SFML which is trivial on *NIX.
-
-// Just   apt-get install libsfml-dev
-// or     brew install sfml
 
 
 std::vector<double> c = {0.806,0.517,0.1,0.908,0.965,0.669,0.524,0.902,0.351,0.876,0.462,
@@ -566,21 +559,6 @@ int main() {
     function masters_cosine_wave_f(&masters_cosine_wave, 30, -30);
     function shekels_foxholes_f(&shekels_foxholes, 10, 0);
 
-//    shekels_foxholes_f.draw();
-//    schwefel_f.draw();
-//    de_jong_f.draw();
-//    rosenbrock_f.draw();
-//    rastrigin_f.draw();
-//    griegwangk_f.draw();
-//    sine_envelope_sine_wave_f.draw();
-//    stretched_v_sine_wave_f.draw();
-//    ackleys_one_f.draw();
-//    ackleys_two_f.draw();
-//    egg_holder_f.draw();
-//    rana_f.draw();
-//    pathological_f.draw();
-//    michalewicz_f.draw();
-//    masters_cosine_wave_f.draw();
 
     std::string vals[] {
         "MEAN", "MEDIAN", "DEVIATION", "AVG_TIME", "DIMENSIONALIY", "UPPER_RANGE", "LOWER_RANGE"
