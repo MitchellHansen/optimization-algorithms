@@ -1,0 +1,133 @@
+
+%%% Preamble
+\documentclass[paper=a4, fontsize=11pt]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+
+\usepackage[english]{babel}															% English language/hyphenation
+\usepackage[protrusion=true,expansion=true]{microtype}	
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage[pdftex]{graphicx}	
+\usepackage{url}
+
+
+%%% Custom sectioning
+\usepackage{sectsty}
+\allsectionsfont{\centering \normalfont\scshape}
+
+
+%%% Custom headers/footers (fancyhdr package)
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead{}											% No page header
+\fancyfoot[L]{}											% Empty 
+\fancyfoot[C]{}											% Empty
+\fancyfoot[R]{\thepage}									% Pagenumbering
+\renewcommand{\headrulewidth}{0pt}			% Remove header underlines
+\renewcommand{\footrulewidth}{0pt}				% Remove footer underlines
+\setlength{\headheight}{13.6pt}
+
+
+%%% Equation and float numbering
+\numberwithin{equation}{section}		% Equationnumbering: section.eq#
+\numberwithin{figure}{section}			% Figurenumbering: section.fig#
+\numberwithin{table}{section}				% Tablenumbering: section.tab#
+
+
+%%% Maketitle metadata
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
+
+\title{
+		%\vspace{-1in} 	
+		\usefont{OT1}{bch}{b}{n}
+		\normalfont \normalsize \textsc{Central Washington University} \\ [1pt]
+		\normalfont \normalsize \textsc{CS 427} \\ [15pt]
+        \horrule{0.5pt} \\[0.4cm]
+		\huge Lab 1 \\
+		\horrule{2pt} \\[0.5cm]
+}
+\author{
+		\normalfont 					\normalsize
+        Mitchell Hansen\\[-3pt]		\normalsize
+        \today
+}
+\date{}
+
+
+%%% Begin document
+\begin{document}
+\maketitle
+\section{Introduction}
+For our first lab, we took 15 functions from various optimization test suites and ran them for varying dimensionality and input. The goal being to determine the range of the functions output, it's standard deviation from input to input, average time to run the function, and other such tests.
+
+\section {Methods}
+For each test, I generated an array of random integers using the C rand() function, seeded at the begginning of the application with srand() and the time. In future tests I will be utilizing the Mersenne Twister method of generating random numbers, which is far more random. After generating the random numbers, I passed each set into the functions at 10, 20, and 30 dimensionality intervals, logging what they return. 
+
+\section{Experimentation Results}
+\begin{center}
+    \begin{tabular}{ | l | l | l | l | l | l |}
+    \hline
+    Function & Dimensionality & Mean & Median & Deviation & Avg. Time \\ \hline
+
+    schwefel & 10 & -1.36058 & -103.102 & 618.227 & 1.7575 \\ \hline
+     & 20 & -5.22963 & 1366.82 & 863.447 & 2.7682 \\ \hline
+     & 30 & -3.35496 & 441.352 & 1071.53 & 3.8081 \\ \hline
+    de jong & 10 & 33264 & 40362 & 9402.19 & 0.7467 \\ \hline
+     & 20 & 66737.3 & 51890 & 13442.9 & 0.7351 \\ \hline
+     & 30 & 100044 & 95177 & 16432.6 & 0.3675 \\ \hline
+    rosenbrok & 10 & 1.79827e+10 & 1.67874e+10 & 7.98429e+09 & 0.0835 \\ \hline
+     & 20 & 3.78563e+10 & 2.30065e+10 & 1.16052e+10 & 1.76 \\ \hline
+     & 30 & 5.81661e+10 & 5.26908e+10 & 1.43576e+10 & 1.0109 \\ \hline
+    rastrigin & 10 & 58068.8 & 37720 & 17104 & 1.0163 \\ \hline
+     & 20 & 231345 & 264520 & 47672.9 & 2.5908 \\ \hline
+     & 30 & 521790 & 523500 & 89713.1 & 3.1789 \\ \hline
+    griegwangk & 10 & 208.696 & 201.88 & 58.559 & 1.0334 \\ \hline
+     & 20 & 417.247 & 502.07 & 82.0775 & 3.7124 \\ \hline
+     & 30 & 626.906 & 633.49 & 101.588 & 4.0333 \\ \hline
+    sine envelope sine wave & 10 & 7.484 & 8.42901 & 0.776108 & 1.3989 \\ \hline
+     & 20 & 15.7985 & 14.7606 & 1.13035 & 3.3113 \\ \hline
+     & 30 & 24.1052 & 26.4525 & 1.40737 & 5.025 \\ \hline
+    stretched v sine wave & 10 & 30.0648 & 37.1503 & 5.56455 & 3.8074 \\ \hline
+     & 20 & 63.5978 & 61.1979 & 8.1662 & 6.1452 \\ \hline
+     & 30 & 96.8599 & 98.3275 & 9.95237 & 8.8907 \\ \hline
+    ackleys one & 10 & 180.243 & 149.991 & 31.6898 & 2.0144 \\ \hline
+     & 20 & 380.786 & 442.58 & 45.7357 & 5.0182 \\ \hline
+     & 30 & 583.005 & 681.962 & 57.6042 & 7.0651 \\ \hline
+    ackleys two & 10 & 152.968 & 152.204 & 4.22097 & 3.3884 \\ \hline
+     & 20 & 322.851 & 326.451 & 6.31728 & 6.0586 \\ \hline
+     & 30 & 492.805 & 498.597 & 7.74626 & 8.9194 \\ \hline
+    egg holder & 10 & -28.1673 & -1334.07 & 872.855 & 2.2148 \\ \hline
+     & 20 & -46.6518 & 718.965 & 1265.43 & 5.0378 \\ \hline
+     & 30 & -120.776 & -2238.62 & 1563.34 & 7.0771 \\ \hline
+    rana & 10 & 5.96939 & 33.1935 & 602.187 & 4.1041 \\ \hline
+     & 20 & 17.3048 & -816.859 & 874.721 & 9.1242 \\ \hline
+     & 30 & 3.58453 & -1667.75 & 1077.64 & 13.6967 \\ \hline
+    pathological & 10 & 4.50048 & 4.50316 & 0.226241 & 2.0145 \\ \hline
+     & 20 & 9.50768 & 9.77562 & 0.326493 & 3.9414 \\ \hline
+     & 30 & 14.5061 & 14.8958 & 0.409931 & 5.4952 \\ \hline
+    michalewicz & 10 & -0.0472368 & 0 & 0.535466 & 1.5615 \\ \hline
+     & 20 & -0.0359855 & 0 & 0.773229 & 3.0854 \\ \hline
+     & 30 & -0.038839 & 0 & 0.969944 & 4.5795 \\ \hline
+    masters cosine wave & 10 & 0.0242817 & -2.82524 & 2.07645 & 2.4656 \\ \hline
+     & 20 & 0.000543481 & 1.27202 & 3.02895 & 3.886 \\ \hline
+     & 30 & -0.073613 & 2.43497 & 3.70944 & 5.1847 \\ \hline
+    shekels foxholes & 10 & -3.18527 & 0 & 4.95254 & 4.8601 \\ \hline
+     & 20 & -3.06529 & 0 & 4.60784 & 7.5344 \\ \hline
+     & 30 & -3.39603 & -5.22145 & 5.05984 & 11.7375 \\ \hline
+
+    
+    \end{tabular}
+\end{center}
+
+
+\section{Analysis}
+Viewing the results of the experiments yields expected and unexpected results. First off, and probably the most easily predicted is the steady increase in computation time required for each function as measured in microseconds. Where steady increases in dimensionality yielded steady increases in computation time. Everything further from here was unexpected for me as I had no idea what to expect from these computations. 
+
+
+For most of the functions, each steady increase in dimensionality was met with an equally steady increasing Mean, Median, and Standard Deviation. Notable exceptions to this are the Schwefel, Michalewicz, and Shekels Foxholes functions. Each either showed little to no change in values, or the values increased and decreased in a random manner. 
+
+I also graphed each of the 15 functions in 2D to view their behavior and found that the Michalewicz and Shekels Foxholes functions had a behavior very different than the other 13. The Michalewicz was similar to how it looks when viewing 3rd party sources, but the Shekels Foxholes function does not match 3rd party sources, which leads me to believe that the input data I had is weird, or I have the function wrong. 
+
+
+%%% End document
+\end{document}

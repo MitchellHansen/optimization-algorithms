@@ -1,0 +1,193 @@
+\documentclass[paper=a4, fontsize=11pt]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+\usepackage[english]{babel}
+\usepackage[protrusion=true,expansion=true]{microtype}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage[pdftex]{graphicx}
+\usepackage{url}
+\usepackage{sectsty}
+\usepackage{rotating}
+\allsectionsfont{\centering \normalfont\scshape}
+
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead{}
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{13.6pt}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+
+\title{
+		%\vspace{-1in} 	
+		\usefont{OT1}{bch}{b}{n}
+		\normalfont \normalsize \textsc{Central Washington University of the Computer Science Department} \\ [25pt]
+		\horrule{0.5pt} \\[0.4cm]
+		\huge Project 4 \\
+		\horrule{2pt} \\[0.5cm]
+}
+
+\author{\normalsize Mitchell Hansen \\[-6pt]}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+For this lab we again took our 15 optimization functions and ran them through
+3 new methods of determining the global minimum. The functions being:
+The Self Organizing Migrating Algorithm (SOMA) which uses an evolutional approach
+, The Firefly Algorithm (FA) which uses an evolutional swarm approach
+similar to Particle Swarm, and the Harmony Search Algorithm (HS) which uses
+another evolutional style approach.
+
+\section{Methods}
+For each of the 3 search methods and all 15 of the search functions we ran
+tests for a set amount of iterations using the python scripts we wrote
+for the previous lab. These results were then written out to a file from which
+we calculated the min, max, range, etc.
+
+We also slightly modified the way FA calculated the step when changin it's direction.
+Instead of using a random distribution when calculating the FA random step
+we used a suggested regular distribution that we found when researching the
+problem online.
+
+\section{Analysis}
+This lab produced both surprising and disappointing results when evaluating the search functions.
+The most surprising results are that of SOMA, where it regularly equaled or beat the most accurate
+search function so far which has been Differential Evolution (DE). Of the 15 functions tested, SOMA
+had better results than DE for 6 of the functions. The rest of the 9 functions tested were very close
+to the results found by the DE search function.
+
+The disappointing results produced by this lab lay in the other two functions tested. HS and FA produced
+very similar results overall, most possibly because they are not all that much better than particle
+swarm of which they are in the same class. Between the two search functions, there was very seldom
+a difference of more than 20 to 30 percent in their fitnesses. We think it's best to compare these
+two functions to their cousin Particle Swarm (PSO) as it is the closest related method.
+
+In relation to PSO the functions did very similarly for the later functions (>4). The lower functions (<4)
+all produced results which were much more inaccurate than traditional particle swarm. In regards to the
+later functions, HS was only able to beat a PSO search method under function 6 with 11.28 determined as
+the minimum, with PSO returning 12.15. FA wasn't able to beat PSO in function 6 but it did come close
+with 13.32. Another notable point to look at is function 15 where HS was able to find the minimum at
+-18.70, but FA was unable to capture the minimum with 16.40.
+
+
+\section{Conclusion}
+
+The conclusion for this lab is a pessimistic one, SOMA was a great success and a valuable
+addition to our growing library of search functions. But are overshadowed by the poor performance
+not only in the accuracy of answers, but also the run times of FA and HS. PSO was able to
+outperform HS and FA in almost every aspect, and that is even telling as PSO performs
+poorly when compared to other search functions we have used for some specific functions.
+Walking away from this lab, I believe that we will add SOMA to our list of highly accurate
+and performance search methods, while leaving FA and HS for problem sets which they are most
+suited to.
+
+Although we scrutinized our code to an appropriate degree we can't rule out the poor performance
+of the FA and HS algorithms being caused by incorrect implementations. We're reasonably
+sure that this is not the case though as the comparable performance to PSO was expected.
+Additionally SOMA was not entirely without faults either. Function 10 for example shows an almost 250
+percent increase in the minimum value over it's DE an PSO counterparts. This is worrisome as
+all of the other results produced by SOMA were within 20 to 30 percent of PSO and DE.
+
+
+\begin{figure}
+\section{Results}
+\caption{Computation comparison of SOMA, HS and FA}
+\hskip+4.0cm
+\rotatebox{90.0}{
+\scalebox{0.7}{
+    \small \centering
+
+    \label{Tab1d}
+    \begin{tabular}{c|lllll|lllll|lllll}
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    Problem & \multicolumn{5}{c}{SOMA}
+            & \multicolumn{5}{|c|}{HS}
+            &  \multicolumn{5}{c}{FA} \\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+
+
+
+         & Avg       & Median     & Range       & SD        & T(s)      & Avg               & Median            & Range         & SD            & T(s)      & Avg            & Median            & Range             & SD            & T(s)     \\ \noalign{\smallskip}\hline\noalign{\smallskip}
+$f_1$    & -7299.02  & -7386.83   & 1503.58     & 452.97    & 0.08      & -1736.64          & -1762.09          & 901.78        & 340.48        & 4.73      & -2078.10       & -2121.93          & 1297.24           & 956.34        & 2.00     \\
+$f_2$    & 73.06     & 33.94      & 332.07      & 100.36    & 0.05      & 38678.19          & 39044.00          & 14740.90      & 5545.68       & 3.63      & 39611.35       & 41038.00          & 15876.60          & 8095.76       & 0.87     \\
+$f_3$    & 149.76    & 119.57     & 338.84      & 99.33     & 0.10      & 15223266000.00    & 15499350000.00    & 9746940000.00 & 3077498860.01 & 3.87      & 13940456000.00 & 13970750000.00    & 11865890000.00    & 3765178464.71 & 1.06     \\
+$f_4$    & -7758.64  & -7737.15   & 362.37  	& 131.58    & 0.20      & 132487.90         & 138380.00         & 75080.00      & 22337.69      & 4.71      & 135166.40      & 136884.00         & 22462.00          & 30028.16      & 2.09     \\
+$f_5$    & 45.26     & 35.50      & 124.00      & 36.68     & 0.07      & 249.51            & 249.76            & 66.18         & 22.99         & 4.75      & 219.01         & 229.32            & 130.89            & 46.52         & 2.18     \\
+$f_6$    & 13.70     & 13.84      & 2.91        & 0.99      & 0.00      & 11.28             & 11.24             & 0.82          & 0.24          & 5.90      & 13.32          & 13.25             & 1.35              & 3.11          & 2.89     \\
+$f_7$    & 36.00     & 34.30      & 24.57       & 8.03      & 0.04      & 34.10             & 34.92             & 5.20          & 1.82          & 6.54      & 45.15          & 44.93             & 8.66              & 9.88          & 4.59     \\
+$f_8$    & 14.49     & 15.01      & 72.42       & 28.43     & 0.10      & 279.82            & 282.06            & 57.12         & 17.79         & 5.95      & 273.29         & 278.48            & 37.49             & 62.42         & 3.66     \\
+$f_9$    & 141.72    & 212.47     & 376.52      & 154.36    & 0.09      & 305.15            & 306.60            & 19.46         & 6.85          & 7.10      & 342.88         & 354.12            & 71.60             & 74.94         & 4.89     \\
+$f_{10}$ & -13566.43 & -14173.65  & 3948.20 	& 1297.42   & 0.55      & -3194.74          & -2846.66          & 2290.95       & 832.19        & 6.07      & -3332.62       & -3378.12          & 2053.65           & 1555.81       & 3.43     \\
+$f_{11}$ & -8428.54  & -8806.80   & 3527.50 	& 1076.29   & 0.58      & -2037.88          & -1976.69          & 1404.16       & 421.07        & 8.39      & -2009.29       & -1998.01          & 1467.36           & 1004.39       & 6.10     \\
+$f_{12}$ & 8.91      & 8.88       & 0.87        & 0.27      & 0.01      & 7.78              & 7.74              & 0.59          & 0.19          & 5.76      & 8.71           & 8.77              & 0.44              & 2.14          & 3.10     \\
+$f_{13}$ & -2.36     & -2.38      & 2.90        & 0.81      & 0.01      & -5.46             & -5.55             & 1.53          & 0.48          & 7.33      & -2.53          & -2.52             & 2.33              & 1.43          & 4.73     \\
+$f_{14}$ & -7.39     & -7.74      & 8.78        & 3.13      & 0.01      & -12.86            & -12.81            & 2.15          & 0.67          & 5.41      & -7.47          & -7.21             & 6.35              & 4.04          & 3.20     \\
+$f_{15}$ & -17.46    & -18.45     & 6.22        & 2.14      & 0.03      & -18.70            & -18.70            & 0.00          & 0.00          & 11.09     & -16.40         & -17.37            & 6.14              & 6.23          & 9.65     \\ \noalign{\smallskip}\hline\noalign{\smallskip}
+     & & & & & & & & & & & & & & &       \\
+\noalign{\smallskip}\hline\noalign{\smallskip} \multicolumn{16}{l}{\tiny $^1$ ThinkPad, 3.4GHz Intel Core i7 (3rd gen), 16 GB RAM}
+
+\end{tabular}
+}}
+
+\end{figure}
+
+
+\newpage
+
+\begin{figure}
+\section{Previous Results}
+\caption{Computation comparison of DE, GA and PSO}
+\hskip+4.0cm
+\rotatebox{90.0}{
+\scalebox{0.7}{
+    \small \centering
+
+    \label{Tab1d}
+    \begin{tabular}{c|lllll|lllll|lllll}
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    Problem & \multicolumn{5}{c}{DE}& \multicolumn{5}{|c|}{GA}
+            &  \multicolumn{5}{c}{PSO} \\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+
+
+
+
+         & Avg      & Median    & Range     & SD        & T(s)      & Avg           & Median        & Range         & SD            & T(s)      & Avg       & Median        & Range         & SD            & T(s)     \\ \noalign{\smallskip}\hline\noalign{\smallskip}
+$f_1$    & -6112.33 & -6084.59  & 114.26    & 47.83     & 1.14      & -3276.12      & -3292.95      & 943.02        & 245.68        & 2.69      & -2871.98  & -2904.39      & 1194.77       & 322.06        & 0.12     \\
+$f_2$    & 129.53   & 25.00     & 900.00	& 251.52    & 0.53      & 23185.53      & 22853.00      & 10310.00      & 3148.43       & 0.72      & 0.17      & 0.15          & 0.25          & 0.08          & 0.09     \\
+$f_3$    & 26105.67 & 10019.00  & 168100.00 & 43662.88  & 0.78      & 5291234666.67 & 5017400000.00 & 5739020000.00 & 1539343402.74 & 0.68      & 421.98    & 200.19        & 1657.68       & 497.31        & 0.10     \\
+$f_4$    & -7600.00 & -7960.00  & 2560.00	& 728.99    & 1.00      & 79752.00      & 81520.00      & 23240.00      & 8507.40       & 2.12      & -5206.62  & -5324.98      & 3479.78       & 1178.83       & 0.13     \\
+$f_5$    & 0.00     & 0.00      & 0.00	    & 0.00      & 1.08      & 145.86        & 150.55        & 51.89         & 17.68         & 2.31      & 9.17      & 8.93          & 5.88          & 1.95          & 0.13     \\
+$f_6$    & 12.38    & 12.71     & 2.19	    & 0.60      & 1.46      & 12.04         & 11.97         & 0.67          & 0.22          & 2.52      & 12.15     & 12.18         & 1.25          & 0.33          & 0.14     \\
+$f_7$    & 19.06    & 19.01     & 0.62	    & 0.16      & 1.67      & 36.69         & 36.60         & 5.76          & 1.54          & 4.20      & 20.55     & 20.45         & 2.63          & 0.68          & 0.18     \\
+$f_8$    & 58.74    & 58.73     & 4.74	    & 1.54      & 1.60      & 212.86        & 213.95        & 41.20         & 11.06         & 3.41      & -9.92     & -11.64        & 35.51         & 9.72          & 0.10     \\
+$f_9$    & -83.30   & -80.69    & 21.87	    & 6.99      & 2.09      & 276.38        & 276.83        & 14.65         & 4.35          & 4.10      & 251.53    & 288.37        & 173.05        & 64.83         & 0.14     \\
+$f_{10}$ & -4959.12 & -4579.12  & 2896.23	& 966.10    & 3.02      & -4778.37      & -4822.17      & 978.82        & 327.79        & 4.72      & -4107.05  & -3830.50      & 2663.98       & 711.61        & 0.13     \\
+$f_{11}$ & -8478.48 & -8821.20  & 5161.40	& 1330.20   & 3.56      & -3188.30      & -3181.83      & 1334.30       & 339.30        & 8.34      & -2899.33  & -2888.72      & 901.67        & 227.81        & 0.21     \\
+$f_{12}$ & 0.00     & 0.00      & 0.00	    & 0.00      & 1.48      & 8.00          & 8.01          & 0.69          & 0.17          & 2.70      & 7.02      & 7.08          & 1.30          & 0.37          & 0.15     \\
+$f_{13}$ & -4.28    & -4.22     & 2.71	    & 0.83      & 3.06      & -4.27         & -4.22         & 2.30          & 0.57          & 5.54      & -10.39    & -9.86         & 4.92          & 1.50          & 0.14     \\
+$f_{14}$ & -18.99   & -19.00    & 0.04	    & 0.01      & 1.47      & -10.88        & -10.53        & 3.70          & 1.00          & 3.65      & -16.07    & -16.15        & 5.22          & 1.59          & 0.14     \\
+$f_{15}$ & -21.91   & -23.03    & 8.39      & 2.95      & 6.05      & -14.64        & -14.64        & 0.00          & 0.00          & 12.55     & -18.70    & -18.70        & 0.00          & 0.00          & 0.27     \\ \noalign{\smallskip}\hline\noalign{\smallskip}
+     & & & & & & & & & & & & & & &       \\
+\noalign{\smallskip}\hline\noalign{\smallskip} \multicolumn{16}{l}{\tiny $^1$ ThinkPad, 3.4GHz Intel Core i7 (3rd gen), 16 GB RAM}
+
+\end{tabular}
+}}
+
+\end{figure}
+
+
+
+\end{document}
+

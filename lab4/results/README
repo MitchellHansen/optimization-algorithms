@@ -1,0 +1,6 @@
+The optimization functions can be either ran with the python script "run.py"
+which will run all 3 search methods with all 15 search functions.
+
+Or you can call the executable directly from the command line. Eg.
+
+./Lab4 <0-14> <dimensionality> <seed> <1-8>

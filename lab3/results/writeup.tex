@@ -1,0 +1,243 @@
+\documentclass[paper=a4, fontsize=11pt]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+\usepackage[english]{babel}
+\usepackage[protrusion=true,expansion=true]{microtype}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage[pdftex]{graphicx}
+\usepackage{url}
+\usepackage{sectsty}
+\usepackage{rotating}
+\allsectionsfont{\centering \normalfont\scshape}
+
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead{}
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{13.6pt}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+
+\title{
+		%\vspace{-1in} 	
+		\usefont{OT1}{bch}{b}{n}
+		\normalfont \normalsize \textsc{Central Washington University of the Computer Science Department} \\ [25pt]
+		\horrule{0.5pt} \\[0.4cm]
+		\huge Project 3 \\
+		\horrule{2pt} \\[0.5cm]
+}
+
+\author{\normalsize Mitchell Hansen \\[-6pt]}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+For this lab we took our 15 optimization functions and ran them through
+3 new methods of determining the global minimum. The functions being:
+Differential evolution (DE) which uses a population approach with strategies
+for computing new solutions, Genetic evolution (GE) which takes a genetic approach
+with genes, crossover and mutation, and Particle swarm (PS) which simulates
+swarm movement to find the global minimum.
+
+\section{Methods}
+Our rewrite in the previous lab allowed us to just extend three more
+classes from the search function class we had implemented. These
+extended classes were then called with a python script and the output
+printed to the console where I was able to analyze the data. Each test
+was ran 15 times using the python script and the data stored to a file.
+
+Upon referencing multiple online sources, we also decided to use a different
+method of initializing particle velocity vectors and velocity maximums. Settling
+with velocityMaxium = 4.0, and the initial velocities being created between
+velocityMaxium \textbackslash 3, and -velocityMaximum \textbackslash 3.
+These values seemed to produce accurate results.
+
+
+
+\section{Analysis}
+This lab produced some interesting results regarding the performance of the
+new functions. Overall, the three new functions (PS, GE, DE) were more
+efficient and accurate than the previous 3 functions (Random Walk, Local Search,
+Iterative Local Search), but there were some discrepancies with some
+functions. These discrepancies showed themselves as completely inaccurate
+results on some functions, while the method would then produce extremely accurate
+results on other functions. For example, GE produced a 23185.53 average for DeJong,
+the actual minimum being 0. Yet for the Michalewicz function GE produced an average
+that was much more competitive to the the other functions.
+
+Another interesting point on the performance of these functions can be seen when comparing
+them to the values received from the previous search functions we used. Rosenbrocks saddle
+is a great example of the performance difference, where Iterative Local Search's best
+value was in the range of 2.51E+10. DE on the other hand was able to produce a minimum
+value of 19 and PS a value of 37, massive increases in accuracy. Interestingly enough,
+for rosenbrocks saddle GE produced a value similar to Iterative local search, a minimum
+of 3.21E+09.
+
+More differences between the three functions can be again found with the Rastrigin function.
+ILS was able to produce a value of 83731.6, GE produced 65280, but PS and DE both had
+massively more accurate results of: PS -> -6902.05, and DE -> -8000 which we believe is the
+actual minimum of the Rastrigin function.
+
+There are other examples of these new functions attaining greater accuracy than the previous
+functions did, but that information can easily be seen in the results table in figure 5.1. One last point we
+want to cover is the actual time performance of these algorithms. Previously Local Search and
+Iterative Local Search both took an excessive amount of time to compute on solutions with
+larger dimensions (20 +). Based on previous performance, it was estimated that the Griegwangk
+function running with 30 dimensions would run for 8 hours using Iterative Local Search. To contrast
+this, the complete computation time taken for the 15 functions, at 15 iterations, using all 3
+search functions completed faster than one iteration of 20 dimensional Iterative Local Search
+with the Griewagnk function.
+
+\section{Conclusion}
+
+Coming away from this lab we saw that these new functions have the ability to not only
+improve the accuracy of our results, but also improve the running time of the search.
+With this improved running time we could run more trials and get even more accurate results
+than the ones that we are getting currently.
+
+There were some difficulties and issues when running the tests for this lab. The first being
+our inability to completely verify our results. We mentioned some discrepancies earlier
+where GE produced values that were wildly inaccurate for some functions. It is unknown to
+us whether this is simply a product of the strengths and weaknesses of this specific search
+method, or if there is something wrong with out implementation. Another issue is that of the
+Shekels Foxholes function. For Particle Swarm and Genetic Evolution there was no deviation from
+the single value that they returned. Either the algorithm is able to deterministic
+produce the apparent global minimum, or there is something wrong with the function.
+
+
+\begin{figure}
+\section{Results}
+\caption{Computation comparison of DE, GA and PSO}
+\hskip+4.0cm
+\rotatebox{90.0}{
+\scalebox{0.7}{
+    \small \centering
+
+    \label{Tab1d}
+    \begin{tabular}{c|lllll|lllll|lllll}
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    Problem & \multicolumn{5}{c}{DE}& \multicolumn{5}{|c|}{GA}
+            &  \multicolumn{5}{c}{PSO} \\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+
+
+
+
+         & Avg      & Median    & Range     & SD        & T(s)      & Avg           & Median        & Range         & SD            & T(s)      & Avg       & Median        & Range         & SD            & T(s)     \\ \noalign{\smallskip}\hline\noalign{\smallskip}
+$f_1$    & -6112.33 & -6084.59  & 114.26    & 47.83     & 1.14      & -3276.12      & -3292.95      & 943.02        & 245.68        & 2.69      & -2871.98  & -2904.39      & 1194.77       & 322.06        & 0.12     \\
+$f_2$    & 129.53   & 25.00     & 900.00	& 251.52    & 0.53      & 23185.53      & 22853.00      & 10310.00      & 3148.43       & 0.72      & 0.17      & 0.15          & 0.25          & 0.08          & 0.09     \\
+$f_3$    & 26105.67 & 10019.00  & 168100.00 & 43662.88  & 0.78      & 5291234666.67 & 5017400000.00 & 5739020000.00 & 1539343402.74 & 0.68      & 421.98    & 200.19        & 1657.68       & 497.31        & 0.10     \\
+$f_4$    & -7600.00 & -7960.00  & 2560.00	& 728.99    & 1.00      & 79752.00      & 81520.00      & 23240.00      & 8507.40       & 2.12      & -5206.62  & -5324.98      & 3479.78       & 1178.83       & 0.13     \\
+$f_5$    & 0.00     & 0.00      & 0.00	    & 0.00      & 1.08      & 145.86        & 150.55        & 51.89         & 17.68         & 2.31      & 9.17      & 8.93          & 5.88          & 1.95          & 0.13     \\
+$f_6$    & 12.38    & 12.71     & 2.19	    & 0.60      & 1.46      & 12.04         & 11.97         & 0.67          & 0.22          & 2.52      & 12.15     & 12.18         & 1.25          & 0.33          & 0.14     \\
+$f_7$    & 19.06    & 19.01     & 0.62	    & 0.16      & 1.67      & 36.69         & 36.60         & 5.76          & 1.54          & 4.20      & 20.55     & 20.45         & 2.63          & 0.68          & 0.18     \\
+$f_8$    & 58.74    & 58.73     & 4.74	    & 1.54      & 1.60      & 212.86        & 213.95        & 41.20         & 11.06         & 3.41      & -9.92     & -11.64        & 35.51         & 9.72          & 0.10     \\
+$f_9$    & -83.30   & -80.69    & 21.87	    & 6.99      & 2.09      & 276.38        & 276.83        & 14.65         & 4.35          & 4.10      & 251.53    & 288.37        & 173.05        & 64.83         & 0.14     \\
+$f_{10}$ & -4959.12 & -4579.12  & 2896.23	& 966.10    & 3.02      & -4778.37      & -4822.17      & 978.82        & 327.79        & 4.72      & -4107.05  & -3830.50      & 2663.98       & 711.61        & 0.13     \\
+$f_{11}$ & -8478.48 & -8821.20  & 5161.40	& 1330.20   & 3.56      & -3188.30      & -3181.83      & 1334.30       & 339.30        & 8.34      & -2899.33  & -2888.72      & 901.67        & 227.81        & 0.21     \\
+$f_{12}$ & 0.00     & 0.00      & 0.00	    & 0.00      & 1.48      & 8.00          & 8.01          & 0.69          & 0.17          & 2.70      & 7.02      & 7.08          & 1.30          & 0.37          & 0.15     \\
+$f_{13}$ & -4.28    & -4.22     & 2.71	    & 0.83      & 3.06      & -4.27         & -4.22         & 2.30          & 0.57          & 5.54      & -10.39    & -9.86         & 4.92          & 1.50          & 0.14     \\
+$f_{14}$ & -18.99   & -19.00    & 0.04	    & 0.01      & 1.47      & -10.88        & -10.53        & 3.70          & 1.00          & 3.65      & -16.07    & -16.15        & 5.22          & 1.59          & 0.14     \\
+$f_{15}$ & -21.91   & -23.03    & 8.39      & 2.95      & 6.05      & -14.64        & -14.64        & 0.00          & 0.00          & 12.55     & -18.70    & -18.70        & 0.00          & 0.00          & 0.27     \\ \noalign{\smallskip}\hline\noalign{\smallskip}
+     & & & & & & & & & & & & & & &       \\
+\noalign{\smallskip}\hline\noalign{\smallskip} \multicolumn{16}{l}{\tiny $^1$ ThinkPad, 3.4GHz Intel Core i7 (3rd gen), 16 GB RAM}
+
+\end{tabular}
+}}
+
+\end{figure}
+
+
+\newpage
+\section{Previous Results}
+
+\hskip+2.5cm\scalebox{0.5}{
+\rotatebox{90}{
+\begin{tabular}{l || l | l | l | l | l | l | l | l | l | l | l | l | l | l | l}
+
+	\textbf{Iterative Local Search, 20 dimensions} \\
+	\hline \\
+	Function & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\
+	\hline \\
+
+    & -4549.4 & 0.0605 & 2.51E+10 & 83731.6 & 0.651206 & 14.7944 & 21.9681 & 279.695 & 321.001 & -1566.84 & -5338.46 & 9.21621 & -0.142619 & -17.715 & -11.8869 \\
+    & -6050.16 & 0.0605 & 4.55E+10 & 80745.8 & 0.268086 & 16.284 & 19.3337 & 343.725 & 313.969 & -1993.75 & -4148.75 & 9.46446 & -0.548652 & -18.1772 & -11.5925 \\
+    & -5398.23 & 0.0591995 & 5.06E+10 & 82401.3 & 0.032413 & 15.3526 & 23.9768 & 296.889 & 321.956 & -4633.19 & -4848.21 & 9.01646 & 0.218791 & -18.4282 & -11.5925 \\
+    & -5675.22 & 0.0605 & 4.42E+10 & 82591.3 & 0.00544314 & 14.7622 & 22.6234 & 331.276 & 323.228 & -4014.04 & -5436.05 & 9.26537 & 0.626347 & -18.2969 & -12.1455 \\
+    & -3976.37 & 0.0588747 & 3.25E+10 & 82036.8 & 0.0128344 & 13.9223 & 25.6647 & 325.015 & 329.982 & -1246.54 & -4823.87 & 9.12409 & -1.33997 & -17.3054 & -11.5925 \\
+    & -5082.38 & 0.0605 & 2.61E+10 & 87382.5 & 0.0201434 & 14.3422 & 21.3897 & 396.392 & 326.205 & -392.775 & -6280.62 & 9.13477 & -2.26781 & -18.1703 & -11.5925 \\
+    & -5891.86 & 0.0605 & 3.85E+10 & 89279.1 & 0.684922 & 15.2594 & 23.0754 & 329.302 & 326.381 & -337.14 & -3871.16 & 9.02972 & -0.0242582 & -18.4513 & -11.5925 \\
+    & -5003.93 & 0.0605 & 3.00E+10 & 85879 & 0.0151074 & 14.8268 & 19.9157 & 325.527 & 314.19 & -1212.15 & -4189.52 & 9.17302 & 0.0681864 & -18.2963 & -11.5925 \\
+    & -5418.57 & 0.0605 & 4.30E+10 & 82890.7 & 0.00544314 & 15.9129 & 20.2634 & 332.571 & 325.788 & -1548.21 & -5548.41 & 9.39065 & -0.906265 & -18.5396 & -11.5925 \\
+    & -5516.7 & 0.0599162 & 3.51E+10 & 82665.9 & 0.03008 & 16.1692 & 19.9074 & 388.651 & 327.169 & 923.714 & -563.104 & 9.20288 & -1.59829 & -18.1054 & -11.5925 \\
+    & -3937.92 & 0.0547374 & 3.35E+10 & 86354.3 & 0.0153078 & 15.3926 & 19.532 & 312.15 & 322.111 & -1598.94 & -4648.01 & 8.87789 & -1.49817 & -17.8506 & -11.5925 \\
+    & -4588.88 & 0.0605 & 3.51E+10 & 81101.4 & 0.00542657 & 15.7841 & 21.7808 & 357.263 & 330.684 & -1319.67 & -4261.9 & 9.33048 & -1.93719 & -18.2627 & -12.1791 \\
+    & -5082.97 & 0.0559769 & 2.42E+10 & 76218.4 & 0.00544314 & 15.1429 & 22.4065 & 346.209 & 324.783 & 1500.62 & -6032.9 & 9.18852 & -1.88437 & -18.2285 & -11.5925 \\
+    & -6070.01 & 0.0594556 & 3.21E+10 & 83486.2 & 0.0201913 & 14.966 & 19.342 & 393.145 & 324.682 & -404.273 & -5094.61 & 8.57302 & 0.126058 & -16.446 & -11.5925 \\
+    & -5043.31 & 0.0605 & 1.85E+10 & 82935.5 & 0.220955 & 14.0295 & 20.2134 & 316.233 & 325.996 & 2079.2 & -4572.43 & 9.70061 & -1.33897 & -18.2227 & -11.5925 \\
+    & -5161.34 & 0.0605 & 3.87E+10 & 85337.7 & 0.00541984 & 14.9478 & 19.5923 & 274.232 & 327.758 & -1727.17 & -4684.33 & 9.01989 & 0.290542 & -18.4796 & -12.1791 \\
+    & -4589.3 & 0.060484 & 3.08E+10 & 83765.5 & 0.01776 & 14.714 & 20.0449 & 314.196 & 325.896 & -1632.08 & -5179.06 & 8.52944 & -0.524841 & -18.3505 & -18.4163 \\
+    & -4332.6 & 0.0600202 & 6.77E+10 & 81498.7 & 0.0153003 & 16.5447 & 20.0096 & 314.165 & 307.423 & 1567.7 & -4461.73 & 9.43874 & -1.20997 & -18.3268 & -11.5925 \\
+    & -6267.41 & 0.0605 & 4.65E+10 & 81603.3 & 1.88596 & 16.1234 & 20.2482 & 316.52 & 317.494 & -5550.9 & -3693.39 & 9.4962 & 0.510028 & -18.1621 & -11.5925 \\
+    & -4588.98 & 0.0605 & 4.06E+10 & 85076.2 & 0.0225431 & 14.0527 & 20.8396 & 325.67 & 324.854 & -2326.43 & -5346.36 & 9.33666 & -1.32004 & -18.555 & -11.5925 \\
+    & -5477.69 & 0.0604347 & 5.13E+10 & 80799.5 & 0.00535823 & 14.7108 & 20.8015 & 261.241 & 319.17 & 485.619 & -4782.73 & 9.17792 & -1.22079 & -17.7232 & -18.1189 \\
+    & -6109.42 & 0.0472961 & 2.54E+10 & 83373.9 & 0.177322 & 15.6127 & 22.9987 & 286.368 & 321.812 & -2998.41 & -4456.01 & 8.6997 & -2.29998 & -18.4625 & -11.5925 \\
+    & -4885.09 & 0.0570039 & 4.39E+10 & 80163.4 & 0.255374 & 15.6927 & 23.8355 & 324.354 & 325.002 & -1578.78 & -4075.51 & 9.10547 & -0.131814 & -17.7901 & -11.5925 \\
+    & -4035.51 & 0.0600693 & 4.32E+10 & 81415.3 & 0.0152417 & 14.9575 & 19.5572 & 296.019 & 321.434 & 824.034 & -4011.91 & 9.31902 & -1.51993 & -17.8755 & -11.5924 \\
+    & -3917.22 & 0.0586818 & 4.16E+10 & 87878.4 & 0.0128369 & 14.4221 & 19.8007 & 375.301 & 300.768 & 1043.95 & -5037.25 & 9.57629 & -1.73324 & -18.2571 & -11.5925 \\
+    & -5754.04 & 0.0575467 & 2.76E+10 & 83622.3 & 0.272711 & 17.8043 & 20.3977 & 370.717 & 317.424 & -1133.68 & -4973.3 & 9.0252 & -1.10353 & -18.3087 & -11.5925 \\
+    & -4786.87 & 0.0605 & 5.54E+10 & 81190 & 0.0324796 & 14.4401 & 19.8204 & 358.965 & 296.103 & 692.475 & -4121.91 & 8.76355 & -0.860885 & -18.484 & -18.4163 \\
+    & -4510.47 & 0.0597792 & 3.24E+10 & 83530.5 & 4.0042 & 16.0272 & 20.4454 & 225.399 & 326.39 & -478.625 & -5370.33 & 9.32801 & -1.13941 & -18.4418 & -11.5729 \\
+    & -5398.26 & 0.0605 & 2.12E+10 & 85510.6 & 0.43707 & 14.8375 & 19.3774 & 332.986 & 327.903 & -985.672 & -316.499 & 8.94067 & 0.336942 & -17.9256 & -11.5925 \\
+    & -4253.69 & 0.0600716 & 3.11E+10 & 84551 & 0.0128391 & 15.5474 & 21.1043 & 361.928 & 322.473 & -2662.15 & -5159.38 & 7.88002 & -0.784451 & -18.5094 & -11.5924 \\
+
+    \hline \\
+    Avg.      & -5045.1266666667 & 0.05921826 & 3.70E+10 & 8.33E+04 & 3.06E-01 & 1.52E+01 & 2.10E+01 & 3.27E+02 & 3.21E+02 & -1.07E+03 & -4.51E+03 & 9.11E+00 & -8.39E-01 & -1.81E+01 & -1.23E+01 \\
+    Med.      & -5062.845 & 0.06045935 & 35130150000 & 83154.7 & 0.02016735 & 15.05445 & 20.33055 & 325.5985 & 323.955 & -1229.345 & -4733.53 & 9.17547 & -1.0048975 & -18.2599 & -11.5925 \\
+    Std. Dev. & 698.8094252189 & 0.0026900942 & 10975111347.1528 & 2619.8872400694 & 0.791604351 & 0.8539153929 & 1.6317417953 & 39.4394076324 & 8.0216805796 & 1808.4389363295 & 1268.809305736 & 0.3628603461 & 0.8562948838 & 0.4364346365 & 2.0376857083 \\
+
+	\hline \\
+
+\end{tabular}
+}
+}
+
+\small{Iterative Local Search Running Times in Seconds}
+
+\hskip+2.5cm\scalebox{0.5}{
+\begin{tabular}{l || l | l | l}
+
+	\textbf{Dimensions} & 10 & 20 & 30 \\
+	\hline \\
+    Function 1 & 5.355587244 & 21.5247523785 & 47.5882720947 \\
+    Function 2 & 0.4999251366 & 1.151144743 & 2.4649145603 \\
+    Function 3 & 0.0042607784 & 0.0112228394 & 0.0144929886 \\
+    Function 4 & 0.0058951378 & 0.0114533901 & 0.0161828995 \\
+    Function 5 & 150.1059572697 & 2928.3961615563 & N/A \\
+    Function 6 & 0.0101454258 & 0.0255510807 & 0.0222308636 \\
+    Function 7 & 32.4964332581 & 41.5021996498 & 168.8056237698 \\
+    Function 8 & 0.3526818752 & 1.6770370007 & 3.8826031685 \\
+    Function 9 & 0.0110986233 & 0.0125215054 & 0.0229070187 \\
+    Function 10 & 0.0899729729 & 0.2644715309 & 0.7342042923 \\
+    Function 11 & 30.093629837 & 165.0208876133 & 384.6772966385 \\
+    Function 12 & 297.458874464 & 25.3617525101 & 21.2174470425 \\
+    Function 13 & 0.0197796822 & 0.0436241627 & 0.0463643074 \\
+    Function 14 & 1.5726833344 & 7.7616007328 & 9.7854065895 \\
+    Function 15 & 6.6486163139 & 23.9164574146 & 32.7224471569 \\
+	\hline \\
+\end{tabular}
+} \\[0.5cm]
+
+
+\end{document}
+
